@@ -55,6 +55,11 @@
         this.update = function() {
             y += 3;
             x += wind;
+
+            if (this.isDone())
+            {
+                raindrops.remove(this);
+            }
         };
 
         this.draw = function() {
@@ -85,11 +90,8 @@
         {
             if (raindrops.hasOwnProperty(r) && raindrops.contains(raindrops[r]))
             {
-                raindrops[r].update();
                 raindrops[r].draw();
-                if (raindrops[r].isDone()) {
-                    raindrops.remove(raindrops[r]);
-                }
+                raindrops[r].update();
             }
         }
     };
