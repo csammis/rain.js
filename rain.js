@@ -66,6 +66,7 @@
             cxt.beginPath();
             cxt.moveTo(x, y);
             cxt.lineTo(x + wind, y + length);
+            cxt.lineWidth = 2;
             cxt.stroke();
         };
 
