@@ -7,6 +7,9 @@
     var WIDTH = canvas.width;
     var SPLASH_SIZE = 20;
     var FALLING_STOP = HEIGHT - (SPLASH_SIZE / 4);
+    var RAINDROP_COUNT = 10;
+    var RAINDROP_VERTICAL_SPEED = 4;
+    var RAINDROP_MAX_LENGTH = 10;
 
     cxt.fillStyle = "#ffffff";
 
@@ -19,7 +22,7 @@
 
         this.update = function() {
             if (this.isFalling()) {
-                y += 4;
+                y += RAINDROP_VERTICAL_SPEED;
                 x += wind;
             } else {
                 splashRadius++;
@@ -60,10 +63,10 @@
     function timer() {
         var t = setTimeout(function () { timer(); }, 2);
         
-        while (raindrops.size() < 10) {
+        while (raindrops.size() < RAINDROP_COUNT) {
             var x = Math.floor(Math.random() * WIDTH);
             var y = Math.floor(Math.random() * 10) * -1;
-            raindrops.add(new raindrop(x, y, 1, 10));
+            raindrops.add(new raindrop(x, y, 1, RAINDROP_MAX_LENGTH));
         }
 
         cxt.fillRect(0, 0, canvas.width, canvas.height);
