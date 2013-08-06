@@ -76,7 +76,8 @@
         
         while (raindrops.size() < 10) {
             var x = Math.floor(Math.random() * WIDTH);
-            raindrops.add(new raindrop(x, 0, 1, 10));
+            var y = Math.floor(Math.random() * 5) * -1;
+            raindrops.add(new raindrop(x, y, 1, 10));
         }
 
         cxt.fillRect(0, 0, canvas.width, canvas.height);
