@@ -50,11 +50,22 @@
     };
     
     function raindrop(init_x, init_y, init_wind, init_length) {
-        var x = init_x, y = init_y, wind = init_wind, length = init_length;
+        var x = init_x, 
+            y = init_y,
+            wind = init_wind, 
+            length = init_length,
+            splashRadius = 2;
 
         this.update = function() {
-            y += 3;
-            x += wind;
+            if (this.isFalling())
+            {
+                y += 3;
+                x += wind;
+            }
+            else
+            {
+                splashRadius++;
+            }
 
             if (this.isDone())
             {
@@ -64,14 +75,25 @@
 
         this.draw = function() {
             cxt.beginPath();
-            cxt.moveTo(x, y);
-            cxt.lineTo(x + wind, y + length);
-            cxt.lineWidth = 2;
+            if (this.isFalling())
+            {
+                cxt.moveTo(x, y);
+                cxt.lineTo(x + wind, y + length);
+                cxt.lineWidth = 2;
+            }
+            else
+            {
+                cxt.arc(x, y, splashRadius, 0, 2 * Math.PI);
+            }
             cxt.stroke();
         };
 
+        this.isFalling = function() {
+            return y < HEIGHT;
+        };
+
         this.isDone = function() {
-            return y > HEIGHT + 1 || x > WIDTH + 1;
+            return splashRadius > 10 || x > WIDTH + 1;
         };
     };
 
