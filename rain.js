@@ -18,32 +18,25 @@
             splashRadius = 2;
 
         this.update = function() {
-            if (this.isFalling())
-            {
+            if (this.isFalling()) {
                 y += 4;
                 x += wind;
-            }
-            else
-            {
+            } else {
                 splashRadius++;
             }
 
-            if (this.isDone())
-            {
+            if (this.isDone()) {
                 raindrops.remove(this);
             }
         };
 
         this.draw = function() {
             cxt.beginPath();
-            if (this.isFalling())
-            {
+            if (this.isFalling()) {
                 cxt.moveTo(x, y);
                 cxt.lineTo(x + wind, y + length);
                 cxt.lineWidth = 2;
-            }
-            else
-            {
+            } else {
                 cxt.save();
                 cxt.translate(x - splashRadius, y - (splashRadius / 4));
                 cxt.scale(splashRadius, splashRadius / 4);
