@@ -8,7 +8,7 @@
     var SPLASH_SIZE = 20;
     var FALLING_STOP = HEIGHT - (SPLASH_SIZE / 4);
     var RAINDROP_COUNT = 10;
-    var RAINDROP_VERTICAL_SPEED = 4;
+    var RAINDROP_VERTICAL_SPEED = 10;
     var RAINDROP_MAX_LENGTH = 10;
 
     cxt.fillStyle = "#ffffff";
@@ -61,11 +61,11 @@
     var raindrops = new Set("raindrops");
 
     function timer() {
-        var t = setTimeout(function () { timer(); }, 2);
+        requestAnimationFrame(timer);
         
         while (raindrops.size() < RAINDROP_COUNT) {
             var x = Math.floor(Math.random() * WIDTH);
-            var y = Math.floor(Math.random() * 10) * -1;
+            var y = Math.floor(Math.random() * 150) * -1;
             raindrops.add(new raindrop(x, y, 1, RAINDROP_MAX_LENGTH));
         }
 
