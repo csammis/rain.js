@@ -2,8 +2,12 @@
     var canvas = document.getElementById("main");
     var cxt = canvas.getContext("2d");
 
+    // Set up constants
     var HEIGHT = canvas.height;
     var WIDTH = canvas.width;
+    var SPLASH_SIZE = 20;
+    var FALLING_STOP = HEIGHT - (SPLASH_SIZE / 4);
+
     cxt.fillStyle = "#ffffff";
 
     function raindrop(init_x, init_y, init_wind, init_length) {
@@ -40,17 +44,21 @@
             }
             else
             {
-                cxt.arc(x, y, splashRadius, 0, 2 * Math.PI);
+                cxt.save();
+                cxt.translate(x - splashRadius, y - (splashRadius / 4));
+                cxt.scale(splashRadius, splashRadius / 4);
+                cxt.arc(1, 1, 1, 0, 2 * Math.PI);
+                cxt.restore();
             }
             cxt.stroke();
         };
 
         this.isFalling = function() {
-            return y < HEIGHT;
+            return y < FALLING_STOP;
         };
 
         this.isDone = function() {
-            return splashRadius > 10 || x > WIDTH + 1;
+            return splashRadius > SPLASH_SIZE || x > WIDTH + 1;
         };
     };
 
