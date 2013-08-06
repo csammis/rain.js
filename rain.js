@@ -16,7 +16,7 @@
         this.update = function() {
             if (this.isFalling())
             {
-                y += 3;
+                y += 4;
                 x += wind;
             }
             else
