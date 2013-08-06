@@ -62,7 +62,7 @@
         
         while (raindrops.size() < 10) {
             var x = Math.floor(Math.random() * WIDTH);
-            var y = Math.floor(Math.random() * 5) * -1;
+            var y = Math.floor(Math.random() * 10) * -1;
             raindrops.add(new raindrop(x, y, 1, 10));
         }
 
