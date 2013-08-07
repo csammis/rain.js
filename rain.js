@@ -15,7 +15,7 @@
     var windSpeed = 1;
 
 
-    function raindrop(init_x, init_y, init_wind, init_length) {
+    function Raindrop(init_x, init_y, init_wind, init_length) {
         var x = init_x, 
             y = init_y,
             wind = init_wind, 
@@ -60,7 +60,7 @@
         };
     };
 
-    function smallCloudLine() {
+    function SmallCloudLine() {
         var radius = 20;
         var offset = 0;
 
@@ -92,7 +92,7 @@
         }
     };
 
-    var smallClouds = new smallCloudLine();
+    var smallClouds = new SmallCloudLine();
     function animateSky() {
         smallClouds.draw();
         smallClouds.update();
@@ -105,7 +105,7 @@
         while (raindrops.size() < raindropCount) {
             var x = Math.floor(Math.random() * WIDTH);
             var y = Math.floor(Math.random() * 150) * -1;
-            raindrops.add(new raindrop(x, y, windSpeed, RAINDROP_MAX_LENGTH));
+            raindrops.add(new Raindrop(x, y, windSpeed, RAINDROP_MAX_LENGTH));
         }
 
         cxt.fillStyle = "#ffffff";
