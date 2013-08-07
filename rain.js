@@ -69,7 +69,6 @@
         while (raindrops.size() < raindropCount) {
             var x = Math.floor(Math.random() * WIDTH);
             var y = Math.floor(Math.random() * 150) * -1;
-            console.log("Creating raindrop with windSpeed = " + windSpeed);
             raindrops.add(new raindrop(x, y, windSpeed, RAINDROP_MAX_LENGTH));
         }
 
