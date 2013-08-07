@@ -60,6 +60,27 @@
         };
     };
 
+    function smallCloudLine() {
+        var radius = 20;
+        var offset = 0;
+
+        this.update = function() {
+            offset += windSpeed;
+            if (offset > radius) {
+                offset = 0;
+            }
+        };
+
+        this.draw = function() {
+            cxt.fillStyle = "#cccccc";
+            for (var i = ((radius / 2) + offset) - radius; i <= WIDTH + radius; i += radius) {
+                cxt.beginPath();
+                cxt.arc(i, 0, radius, 0, Math.PI * 2);
+                cxt.fill();
+            }
+        };
+    };
+
     var raindrops = new Set("raindrops");
 
     function animateRain() {
@@ -71,14 +92,10 @@
         }
     };
 
+    var smallClouds = new smallCloudLine();
     function animateSky() {
-        cxt.fillStyle = "#cccccc";
-        for (var i = 10; i <= WIDTH; i += 20)
-        {
-            cxt.beginPath();
-            cxt.arc(i, 0, 20, 0, Math.PI * 2);
-            cxt.fill();
-        }
+        smallClouds.draw();
+        smallClouds.update();
     };
 
     function timer() {
