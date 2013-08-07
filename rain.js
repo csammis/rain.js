@@ -12,6 +12,7 @@
 
     // Adjustable variables
     var raindropCount = 25;
+    var windSpeed = 1;
 
     cxt.fillStyle = "#ffffff";
 
@@ -64,11 +65,12 @@
 
     function timer() {
         requestAnimationFrame(timer);
-       
+      
         while (raindrops.size() < raindropCount) {
             var x = Math.floor(Math.random() * WIDTH);
             var y = Math.floor(Math.random() * 150) * -1;
-            raindrops.add(new raindrop(x, y, 1, RAINDROP_MAX_LENGTH));
+            console.log("Creating raindrop with windSpeed = " + windSpeed);
+            raindrops.add(new raindrop(x, y, windSpeed, RAINDROP_MAX_LENGTH));
         }
 
         cxt.fillRect(0, 0, canvas.width, canvas.height);
@@ -83,14 +85,22 @@
     };
 
     $(function() {
-        // Bind the raindrop slider to its label and the RAINDROP_COUNT variable
-        var raindrops = $("#raindrops");
+        // Bind the sliders to the respective labels and variables
+        var raindropCountValue = $("#raindropCountValue");
         $("#raindropCount").change(function () {
-            raindropCount = this.value;
-            raindrops.html("(" + this.value + ")");
+            raindropCount = this.value * 1.0;
+            raindropCountValue.html("(" + this.value + ")");
         });
         $("#raindropCount").val(raindropCount);
         $("#raindropCount").change();
+
+        var windSpeedValue = $("#windSpeedValue");
+        $("#windSpeed").change(function() {
+            windSpeed = this.value * 1.0;
+            windSpeedValue.html("(" + this.value + ")");
+        });
+        $("#windSpeed").val(windSpeed);
+        $("#windSpeed").change();
     });
 
     window.onload = timer();
