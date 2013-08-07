@@ -14,7 +14,6 @@
     var raindropCount = 25;
     var windSpeed = 1;
 
-    cxt.fillStyle = "#ffffff";
 
     function raindrop(init_x, init_y, init_wind, init_length) {
         var x = init_x, 
@@ -63,24 +62,35 @@
 
     var raindrops = new Set("raindrops");
 
+    function animateRain() {
+        for (var r in raindrops) {
+            if (raindrops.hasOwnProperty(r) && raindrops.contains(raindrops[r])) {
+                raindrops[r].draw();
+                raindrops[r].update();
+            }
+        }
+    };
+
+    function animateSky() {
+        cxt.fillStyle = "#cccccc";
+        cxt.fillRect(0, 0, WIDTH, 20);
+    };
+
     function timer() {
         requestAnimationFrame(timer);
-      
+
+        // We got enough rain? Good.
         while (raindrops.size() < raindropCount) {
             var x = Math.floor(Math.random() * WIDTH);
             var y = Math.floor(Math.random() * 150) * -1;
             raindrops.add(new raindrop(x, y, windSpeed, RAINDROP_MAX_LENGTH));
         }
 
+        cxt.fillStyle = "#ffffff";
         cxt.fillRect(0, 0, canvas.width, canvas.height);
-        for (var r in raindrops)
-        {
-            if (raindrops.hasOwnProperty(r) && raindrops.contains(raindrops[r]))
-            {
-                raindrops[r].draw();
-                raindrops[r].update();
-            }
-        }
+
+        animateRain();
+        animateSky();
     };
 
     $(function() {
