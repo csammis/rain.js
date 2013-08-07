@@ -73,7 +73,12 @@
 
     function animateSky() {
         cxt.fillStyle = "#cccccc";
-        cxt.fillRect(0, 0, WIDTH, 20);
+        for (var i = 10; i <= WIDTH; i += 20)
+        {
+            cxt.beginPath();
+            cxt.arc(i, 0, 20, 0, Math.PI * 2);
+            cxt.fill();
+        }
     };
 
     function timer() {
