@@ -7,9 +7,11 @@
     var WIDTH = canvas.width;
     var SPLASH_SIZE = 20;
     var FALLING_STOP = HEIGHT - (SPLASH_SIZE / 4);
-    var RAINDROP_COUNT = 10;
     var RAINDROP_VERTICAL_SPEED = 10;
     var RAINDROP_MAX_LENGTH = 10;
+
+    // Adjustable variables
+    var raindropCount = 25;
 
     cxt.fillStyle = "#ffffff";
 
@@ -62,8 +64,8 @@
 
     function timer() {
         requestAnimationFrame(timer);
-        
-        while (raindrops.size() < RAINDROP_COUNT) {
+       
+        while (raindrops.size() < raindropCount) {
             var x = Math.floor(Math.random() * WIDTH);
             var y = Math.floor(Math.random() * 150) * -1;
             raindrops.add(new raindrop(x, y, 1, RAINDROP_MAX_LENGTH));
@@ -79,6 +81,17 @@
             }
         }
     };
+
+    $(function() {
+        // Bind the raindrop slider to its label and the RAINDROP_COUNT variable
+        var raindrops = $("#raindrops");
+        $("#raindropCount").change(function () {
+            raindropCount = this.value;
+            raindrops.html("(" + this.value + ")");
+        });
+        $("#raindropCount").val(raindropCount);
+        $("#raindropCount").change();
+    });
 
     window.onload = timer();
 })();
