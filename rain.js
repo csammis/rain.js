@@ -26,7 +26,7 @@
                 y += RAINDROP_VERTICAL_SPEED;
                 x += windSpeed;
             } else {
-                splashRadius++;
+                splashRadius += 2;
             }
 
             if (this.isDone()) {
@@ -46,6 +46,7 @@
                 cxt.scale(splashRadius, splashRadius / 4);
                 cxt.arc(1, 1, 1, 0, 2 * Math.PI);
                 cxt.restore();
+                cxt.lineWidth = 1;
             }
             cxt.stroke();
         };
