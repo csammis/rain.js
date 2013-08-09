@@ -65,7 +65,7 @@
         var offset = 0;
 
         this.update = function() {
-            offset += windSpeed;
+            offset += windSpeed / 2;
             if (offset > radius) {
                 offset = 0;
             }
