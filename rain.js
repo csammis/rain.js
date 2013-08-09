@@ -15,17 +15,16 @@
     var windSpeed = 1;
 
 
-    function Raindrop(init_x, init_y, init_wind, init_length) {
+    function Raindrop(init_x, init_y, init_length) {
         var x = init_x, 
             y = init_y,
-            wind = init_wind, 
             length = init_length,
             splashRadius = 2;
 
         this.update = function() {
             if (this.isFalling()) {
                 y += RAINDROP_VERTICAL_SPEED;
-                x += wind;
+                x += windSpeed;
             } else {
                 splashRadius++;
             }
@@ -39,7 +38,7 @@
             cxt.beginPath();
             if (this.isFalling()) {
                 cxt.moveTo(x, y);
-                cxt.lineTo(x + wind, y + length);
+                cxt.lineTo(x + windSpeed, y + length);
                 cxt.lineWidth = 2;
             } else {
                 cxt.save();
@@ -105,7 +104,7 @@
         while (raindrops.size() < raindropCount) {
             var x = Math.floor(Math.random() * WIDTH);
             var y = Math.floor(Math.random() * 150) * -1;
-            raindrops.add(new Raindrop(x, y, windSpeed, RAINDROP_MAX_LENGTH));
+            raindrops.add(new Raindrop(x, y, RAINDROP_MAX_LENGTH));
         }
 
         cxt.fillStyle = "#ffffff";
