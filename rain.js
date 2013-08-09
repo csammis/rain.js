@@ -126,10 +126,10 @@
 
         var windSpeedValue = $("#windSpeedValue");
         $("#windSpeed").change(function() {
-            windSpeed = this.value * 1.0;
-            windSpeedValue.html("(" + this.value + ")");
+            windSpeed = this.value * 0.1;
+            windSpeedValue.html("(" + Math.floor(this.value / 10) + ")");
         });
-        $("#windSpeed").val(windSpeed);
+        $("#windSpeed").val(windSpeed * 10);
         $("#windSpeed").change();
     });
 
