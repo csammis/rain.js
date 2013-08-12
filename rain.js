@@ -60,7 +60,7 @@
         };
     };
 
-    function Cloud(init_x, init_y, init_width, init_windMultiplier) {
+    function Cloud(init_x, init_y, init_width, init_windMultiplier, minRadius, maxRadius) {
         var x = init_x,
             y = init_y,
             width = init_width,
@@ -96,7 +96,7 @@
             var lastX = x;
             for (var i = 0; i < width; /**/)
             {
-                var radius = Math.floor(Math.random() * (width / 5));
+                var radius = Math.floor((Math.random() * (maxRadius - minRadius)) + minRadius);
                 if (i == 0) {
                     upperXBound = WIDTH + (radius * 2);
                 }
@@ -132,7 +132,7 @@
         }
     };
 
-    clouds.add(new Cloud(0, 20, 200, 1));
+    clouds.add(new Cloud(0, 20, WIDTH, 0, 20, 50));
 
     function timer() {
         requestAnimationFrame(timer);
