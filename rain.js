@@ -90,11 +90,11 @@
         this.isDone = function() {
             return x > upperXBound || x < lowerXBound;
         };
-
+        
         // Initialize the pieces of the cloud
         (function () {
             var lastX = x;
-            for (var i = 0; i < 10; i++)
+            for (var i = 0; i < width; /**/)
             {
                 var radius = Math.floor(Math.random() * (width / 5));
                 if (i == 0) {
@@ -102,7 +102,9 @@
                 }
                 var yOffset = Math.floor(Math.random() * 20) - 10;
                 circles.push({ c_x : lastX, c_y : y + yOffset, c_r : radius});
+                
                 lastX += radius;
+                i += radius;
             }
             lowerXBound = lastX * -1;
         })();
