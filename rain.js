@@ -60,25 +60,39 @@
         };
     };
 
-    function SmallCloudLine() {
-        var radius = 20;
-        var offset = 0;
+    function Cloud(init_x, init_y, init_width, init_windMultiplier) {
+        var x = init_x,
+            y = init_y,
+            width = init_width,
+            windMultiplier = init_windMultiplier,
+            offset = 0;
+
+        var circles = new Array();
 
         this.update = function() {
-            offset += windSpeed / 2;
-            if (offset > radius) {
-                offset = 0;
-            }
+            offset += windSpeed * windMultiplier;
         };
 
         this.draw = function() {
             cxt.fillStyle = "#cccccc";
-            for (var i = ((radius / 2) + offset) - radius; i <= WIDTH + radius; i += radius) {
+            for (var i = 0; i < circles.length; i++)
+            {
                 cxt.beginPath();
-                cxt.arc(i, 0, radius, 0, Math.PI * 2);
+                cxt.arc(circles[i].c_x + offset, circles[i].c_y, circles[i].c_r, 0, Math.PI * 2);
                 cxt.fill();
             }
         };
+
+        (function () {
+            var lastX = x;
+            for (var i = 0; i < 10; i++)
+            {
+                var radius = Math.floor(Math.random() * (width / 5));
+                var yOffset = Math.floor(Math.random() * 20) - 10;
+                circles.push({ c_x : lastX, c_y : y + yOffset, c_r : radius});
+                lastX += radius;
+            }
+        })();
     };
 
     var raindrops = new Set("raindrops");
@@ -92,11 +106,18 @@
         }
     };
 
-    var smallClouds = new SmallCloudLine();
+    var clouds = new Set("clouds");
+
     function animateSky() {
-        smallClouds.draw();
-        smallClouds.update();
+        for (var c in clouds) {
+            if (clouds.hasOwnProperty(c) && clouds.contains(clouds[c])) {
+                clouds[c].draw();
+                clouds[c].update();
+            }
+        }
     };
+
+    clouds.add(new Cloud(0, 20, 200, 1));
 
     function timer() {
         requestAnimationFrame(timer);
