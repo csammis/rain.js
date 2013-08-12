@@ -65,12 +65,16 @@
             y = init_y,
             width = init_width,
             windMultiplier = init_windMultiplier,
-            offset = 0;
+            upperXBound = 0, lowerXBound = 0;
 
         var circles = new Array();
 
         this.update = function() {
-            offset += windSpeed * windMultiplier;
+            x += windSpeed * windMultiplier;
+
+            if (this.isDone()) {
+                clouds.remove(this);
+            }
         };
 
         this.draw = function() {
@@ -78,20 +82,29 @@
             for (var i = 0; i < circles.length; i++)
             {
                 cxt.beginPath();
-                cxt.arc(circles[i].c_x + offset, circles[i].c_y, circles[i].c_r, 0, Math.PI * 2);
+                cxt.arc(circles[i].c_x + x, circles[i].c_y, circles[i].c_r, 0, Math.PI * 2);
                 cxt.fill();
             }
         };
 
+        this.isDone = function() {
+            return x > upperXBound || x < lowerXBound;
+        };
+
+        // Initialize the pieces of the cloud
         (function () {
             var lastX = x;
             for (var i = 0; i < 10; i++)
             {
                 var radius = Math.floor(Math.random() * (width / 5));
+                if (i == 0) {
+                    upperXBound = WIDTH + (radius * 2);
+                }
                 var yOffset = Math.floor(Math.random() * 20) - 10;
                 circles.push({ c_x : lastX, c_y : y + yOffset, c_r : radius});
                 lastX += radius;
             }
+            lowerXBound = lastX * -1;
         })();
     };
 
